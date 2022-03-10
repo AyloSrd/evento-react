@@ -2,7 +2,7 @@
 - Library to reproduce Svelte's `createEventDispatcher` and Vue's `$emit` behaviour on React.
 - Hook + HOC for class Components.
 - Typescript support. 
-![Evento](evento.png)
+![Evento](evento.JPG)
 ## A new Event paradigm
 Inspired by Svelte's [`createEventDispatcher()`](https://svelte.dev/tutorial/component-events) and Vue's [`$emit`](https://vuejs.org/guide/components/events.html), Evento brings Component Events to the world of React.
 
