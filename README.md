@@ -1,5 +1,9 @@
+# Component Events for React
+Hook to repoduce Svelte's `createEventDispatcher` behaviour on React(similar to Vue's `$emit`).
+Hook + HOK, for class Components.
+Typescript support. 
 ![Evento](evento.png)
-# A new Event paradigm
+## A new Event paradigm
 Inspired by Svelte's [`createEventDispatcher()`](https://svelte.dev/tutorial/component-events) and Vue's [`$emit`](https://vuejs.org/guide/components/events.html), Evento brings Component Events to the world of React.
 
 With Evento, a React Component can dispatch a Custom Event, with an optional payload, to the Component's consumer.
@@ -119,11 +123,15 @@ type LuigiProps = {
   hasMustache: boolean,
 }
 ```
-Remember that the handler always takes a Custom Event, therefore this is how you type the payload : 
+Remember that the handler always takes a Custom Event, which will wrap your payload type, as such : 
 ```tsx
 type MarioProps = {
-  onEat: (e: CustomEvent<Shroom>) => void,
+  onEat: (e: CustomEvent<string>) => void,
 }
+
+// the event will be dispatched as such
+evento('eat', 'shroom')
+
 ```
 When you are working with the experimental hook, you still have to pass the props type (but not the props themselves) to it :
 ```tsx
