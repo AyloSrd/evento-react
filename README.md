@@ -1,6 +1,8 @@
 # Component Events for React
-Hook to repoduce Svelte's `createEventDispatcher` behaviour on React(similar to Vue's `$emit`).
+Hook to repoduce Svelte's `createEventDispatcher` behaviour on React (similar to Vue's `$emit`).
+
 Hook + HOK, for class Components.
+
 Typescript support. 
 ![Evento](evento.png)
 ## A new Event paradigm
