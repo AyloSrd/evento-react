@@ -3,6 +3,13 @@
 - Hook + HOC for class Components.
 - Typescript support. 
 ![Evento](evento.JPG)
+
+## Install
+
+```bash
+npm install --save evento-react
+```
+
 ## A new Event paradigm
 Inspired by Svelte's [`createEventDispatcher()`](https://svelte.dev/tutorial/component-events) and Vue's [`$emit`](https://vuejs.org/guide/components/events.html), Evento brings Component Events to the world of React.
 
