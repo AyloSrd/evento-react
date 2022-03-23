@@ -1,7 +1,8 @@
 # Component Events for React
-- Library to reproduce Svelte's `createEventDispatcher` and Vue's `$emit` behaviour on React.
+- Library to replicate Svelte's `createEventDispatcher` and Vue's `$emit` behaviour on React.
 - Hook + HOC for class Components.
 - Typescript support. 
+
 ![Evento](evento.JPG)
 
 ## Install
@@ -17,19 +18,20 @@ With Evento, a React Component can dispatch a Custom Event, with an optional pay
 ```js
 const handleClick = () => evento('message', 'yo Mario World!')
 ```
-The parent Component will be able to listent to the Event as it would listen to a React event: by using `on` + the capitalized name of the Component Event.
+The parent Component will be able to listent to the Event as it would listen to a React Event: by using `on` + the capitalized name of the Component Event.
 The data will be stored in `event.detail`.
 ```jsx
 <Child onMessage={e => console.log(e.detail)}> // will log 'yo Mario World!'
 ```
 
-The Event dispatcher, named by convention `evento`(not to conflict with `useReducer`'s `dispatch`, or `emit` from other libraries), can be either created by using one of the two provided hooks (`useCreateEvento` and `useExpCreateEvento`), or accessed it in the props if you have wrapped your component with the `withEvento` HOC.
+The Event dispatcher, named by convention `evento`(not to conflict with `useReducer`'s `dispatch`, or with `emit` from other libraries), can be either created by using one of the two provided hooks (`useCreateEvento` and `useExpCreateEvento`), or accessed it in the props if you have wrapped your component with the `withEvento` HOC.
 
-Evento comes with full TypeScript support, and will warn you in case you try to emit an event non-declared in the props type, or in case the payload doesn't correspond to the called event.
+Evento comes with full TypeScript support, and will suggst all of the available Events, based on the component props type, as well as the payload type for the chosen Event.
 
 There are two main advantages in using Component Events, instead of passing down the callback as a props and leaving it to the child to deal with it : 
-1. **Independent & Reusable Components :** Each Component can focus on its main role, without having to adapt its internal functioning to the callback passed by their parents; also if the code of the passed callback changes, this will not entail changing the code of the event dispatcher. Finally, the data emitted doesn't have to be formatted to the parent's need, as it is standardized as Event detail.
-2. **Uniform Event-listeners :** In JavaScript, and in most of JavaScript frameworks/libraries, the `on` suffix is associated to listening to events. 
+1. **Reduced prop-drilling :** Although technically you are still passing the callbacks as props from the Parent down to its Child, the way you'll think the data flow will be from the Child up, and not vice-versa. This will increase the developer experience.
+2. **Independent & Agnostic Components :** Each Component can focus on its main role, without having to adapt its internal functioning to the callback passed by their parents; also if the code of the passed callback changes, this will not entail changing the code of the Event dispatcher. Finally, the data emitted doesn't have to be formatted to the parent's need, as it is standardized as Event detail.
+2. **Standardized Event-listeners :** In JavaScript, and in most of JavaScript frameworks/libraries, the `on` suffix is associated to listening to Events. 
 With React it's difficult for the developer to know in advance what type of data the callback is expecting, or what data the child Component is going to pass to the callback; With `evento`, any Event-listener is associated to an Event, making the codebase more homogeneous, and meeting the developer expectations of working with Events when encountering a `on` prop.
 
 ##  `evento`, the Event dispatcher/emitter
@@ -123,7 +125,7 @@ return (
 }
 ```
 ## Typing with TypeScript
-In order to benefit from TypeScript Intellisense and error checking, you have to declare the event handlers in the component props. For instance, if you dispatch a `'jump'` event, your props should look something like this : 
+In order to benefit from TypeScript Intellisense and error checking, you have to declare the Event handlers in the component props. For instance, if you dispatch a `'jump'` Event, your props should look something like this : 
 ```tsx
 type LuigiProps = {
   onJump: () => void,
@@ -158,6 +160,10 @@ const WarioContainer = (props: HOCProps<WarioProps>) => { // will add evento dis
 
 const Wario = withEvento<WarioProps>(WarioContainer)
 ```
+
+## Example
+[This CodeSanbox](https://codesandbox.io/s/evento-react-exemple-v39sbm) show various usecases of the Evento library.
+
 ## Next 
-Working on adding event-forwarding and event dispatcher for class-based Components.
+Working on adding Event-forwarding and Event dispatcher for class-based Components.
 Will keep you posted.
