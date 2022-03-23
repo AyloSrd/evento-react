@@ -72,7 +72,12 @@
     "event-emitter",
     "component-event",
     "component event",
-    "dispatch"
+    "dispatch",
+    "payload",
+    "custom event",
+    "custom-events",
+    "event detail",
+    "prop-drilling"
   ]
 }
 
