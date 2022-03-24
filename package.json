@@ -1,6 +1,6 @@
 {
   "name": "evento-react",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "license": "MIT",
   "author": "AyloSrd",
   "main": "dist/index.js",
@@ -69,6 +69,8 @@
     "event-dispatcher",
     "event",
     "emit",
+    "forward-event",
+    "event forwarder",
     "event-emitter",
     "component-event",
     "component event",
