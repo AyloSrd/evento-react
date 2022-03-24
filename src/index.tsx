@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Evento, Handlers, HOCProps, Payload } from './definitions'
-import { create_custom_event, event_name_to_prop_name } from './utils'
+import { create_custom_event, event_name_to_prop_name, is_synthetic_event_duck_typing } from './utils'
 
 export function useCreateEvento<Props>(props: Props): Evento<Props> {
   return React.useCallback(function<N extends keyof Handlers<Props> & string>(
@@ -12,7 +12,9 @@ export function useCreateEvento<Props>(props: Props): Evento<Props> {
     if (typeof cb !== 'function') {
         return new Promise(resolve => resolve(false))
     }
-    const eventPayload = create_custom_event(eventName, payload[0])
+    const eventPayload = payload[0] && is_synthetic_event_duck_typing(payload[0]) 
+      ?  payload[0] 
+      : create_custom_event(eventName, payload[0])
     const res = cb(eventPayload)
     if (res instanceof Promise) {
         return res.then(() => true)
@@ -33,7 +35,9 @@ export function useExpCreateEvento<Props>(): Evento<Props> {
     if (typeof cb !== 'function') {
         return new Promise(resolve => resolve(false))
     }
-    const eventPayload = create_custom_event(eventName, payload[0])
+    const eventPayload = is_synthetic_event_duck_typing(payload[0]) 
+      ?  payload[0] 
+      : create_custom_event(eventName, payload[0])
     const res = cb(eventPayload)
     if (res instanceof Promise) {
         return res.then(() => true)

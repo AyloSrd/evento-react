@@ -36,6 +36,10 @@ type KoopaProps = {
   onRun: (e: CustomEvent<number>) => void,
 }
 
+type YoshiProps = {
+  onForwardedClick: (e: React.MouseEvent<HTMLButtonElement>) => void
+}
+
 const Mario = (props: MarioProps) => {
   const evento = useCreateEvento(props)
   const handleClickA = () => evento('jump', 'it\'s a me...')
@@ -115,6 +119,20 @@ const Box = (props: BoxProps) => {
   )
 }
 
+const Yoshi = (props: YoshiProps) => {
+  const evento = useCreateEvento(props)
+
+  return (
+    <div>
+      <button
+        onClick={e => evento('forwardedClick', e)}
+      >
+        Forward
+      </button>
+    </div>
+  )
+}
+
 const App = () => {
   const [koopaSpeed, setKoopaSpeed] = React.useState<number>(Math.random())
   return (
@@ -148,6 +166,7 @@ const App = () => {
       <button onClick={() => setKoopaSpeed(Math.random())}>
         change speed
       </button>
+      <Yoshi onForwardedClick={e => console.log(e.clientX)} />
     </div>
   );
 };

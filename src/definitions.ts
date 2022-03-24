@@ -7,6 +7,8 @@ export type Payload<T, K extends keyof Handlers<T>> =
         undefined
     : Handlers<T>[K] extends (undefined | ((e: CustomEvent<infer D>) => any)) ? 
         D
+    :  Handlers<T>[K] extends (undefined | ((e: infer D & React.SyntheticEvent) => any)) ?
+        D
     :
         never
   
