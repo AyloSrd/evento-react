@@ -25,18 +25,18 @@ export function is_synthetic_event_duck_typing(payload: any): boolean {
     return (
         is_of_type(payload.bubbles, 'boolean')
         && is_of_type(payload.cancelable, 'boolean')
-        && payload.currentTarget
         && is_of_type(payload.defaultPrevented, 'boolean')
         && is_of_type(payload.eventPhase, 'number')
         && is_of_type(payload.isTrusted, 'boolean')
-        && payload.nativeEvent
         && is_of_type(payload.preventDefault, 'function')
         && is_of_type(payload.isDefaultPrevented, 'function')
         && is_of_type(payload.stopPropagation, 'function')
         && is_of_type(payload.isPropagationStopped, 'function')
         && is_of_type(payload.persist, 'function')
-        && payload.target
         && is_of_type(payload.timeStamp, 'number')
         && is_of_type(payload.type, 'string')
+        && payload.currentTarget
+        && payload.nativeEvent
+        && payload.target
     )
 }
