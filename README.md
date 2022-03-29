@@ -1,5 +1,5 @@
 # component event for React
-- Dispatch Custom component event with a payload, or forward React synthetic event
+- Dispatch custom component event with a payload, or forward React synthetic event
 - Replicate Svelte's `createEventDispatcher` and Vue's `$emit` behavior on React.
 - Hook + HOC for class components.
 - TypeScript support. 
@@ -17,7 +17,7 @@ npm install --save evento-react
 ## A new event paradigm
 Inspired by Svelte's [`createEventDispatcher()`](https://svelte.dev/tutorial/component-events) and Vue's [`$emit`](https://vuejs.org/guide/components/events.html), Evento brings component event to the world of React.
 
-With Evento, a React component can dispatch a Custom event with an optional payload, or forward a React event, to the component's consumer.
+With Evento, a React component can dispatch a custom event with an optional payload, or forward a React event, to the component's consumer.
 ```js
 const handleClick = () => evento('message', 'yo Mario World!')
 ```
@@ -131,7 +131,7 @@ return (
 
 ## event-forwarding
 
-If you need to forward an event to the parent component, you can do it by passing said event to as second parameter to the event dispatcher. Evento will recognize and forward it as it is, instead of storing it in the detail of a Custom event. As of now, you can forward only React synthetic event (and not HTML native events, nor Custom event created with Evento).
+If you need to forward an event to the parent component, you can do it by passing said event to as second parameter to the event dispatcher. Evento will recognize and forward it as it is, instead of storing it in the detail of a custom event. As of now, you can forward only React synthetic event (and not HTML native events, nor custom event created with Evento).
 You don't have to name the event as the synthetic event itself, although we advise you to keep the same name, to hint that the event that the handler is going to receive is not a custom one.
 ```tsx
 // you can do this
