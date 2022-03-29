@@ -150,19 +150,19 @@ type LuigiProps = {
   hasMustache: boolean,
 }
 ```
-With regards to the payload, if you are forwarding an event, you just have to type it as any React event.*
+With regards to the payload, if you are forwarding an event, you just have to type it as forwarded React event.
 ```tsx
 type MarioProps = {
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void,
 }
 ```
-Otherwise, the handler will take a Custom event, so you will pass have to wrap the payload type into a `CustomEvent` type, as such : 
+Otherwise, if you are creating a custom component event, so you will have to wrap the payload type into a `CustomEvent` type, as such : 
 ```tsx
 type MarioProps = {
   onEat: (e: CustomEvent<string>) => void,
 }
 // the event will be dispatched as such
-evento('eat', 'shroom')
+const handleClick = () => evento('eat', 'shroom')
 
 ```
 When you are working with the experimental hook, you still have to pass the props type (but not the props themselves) to it :
@@ -189,12 +189,12 @@ const Wario = withEvento<WarioProps>(WarioContainer)
 [This CodeSanbox](https://codesandbox.io/s/evento-react-exemple-v39sbm) shows all the different uses you can make of the Evento library.
 
 
-## Why Componnet event ?
+## Why component events?
 
 There are three main advantages in using component events, instead of passing down the callback as a props and leaving it to the child to deal with it : 
-1. **Reduced prop-drilling :** Although technically you are still passing the callbacks as props from the parent down to its child, the way you'll think the data flow will be from the child up, and not vice-versa. This will improve the developer experience.
-2. **Independent & agnostic components :** Each component can focus on its own role, without having to adapt its internal functioning to the callback passed by their parent; also if the logic of the passed callback changes, this will not entail changing the code of the event dispatcher.
-2. **Standardized event-listeners :** In JavaScript, and in most of JavaScript frameworks/libraries, the `on` suffix is associated to listening to events. 
+1. **Reduced prop-drilling:** Although technically you are still passing the callbacks as props from the parent down to its child, the way you'll think the data flow will be from the child up, and not vice-versa. This will improve the developer experience.
+2. **Independent & agnostic components:** Each component can focus on its own role, without having to adapt its internal functioning to the callback passed by their parent; also if the logic of the passed callback changes, this will not entail changing the code of the event dispatcher.
+2. **Standardized event-listeners:** In JavaScript, and in most of JavaScript frameworks/libraries, the `on` suffix is associated to listening to events. 
 With React it's difficult for the developer to know in advance what type of data the callback is expecting, or what data the child component is going to pass to the callback; with `evento` on the other hand, any event-listener will always receive an event (or nothing at all), as a parameter, making the codebase more homogeneous, and meeting the developer expectations of working with events when encountering a `on`-suffixed prop.
 
 ## Next 
