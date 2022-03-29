@@ -199,5 +199,5 @@ With React it's difficult for the developer to know in advance what type of data
 
 ## Next 
 
-Working on adding en event-dispatcher creator for class-based components.
+Working on adding an event-dispatcher creator for class-based components.
 Will keep you posted.
