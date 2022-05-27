@@ -35,7 +35,7 @@ export function useExpCreateEvento<Props>(): Evento<Props> {
     if (typeof cb !== 'function') {
         return new Promise(resolve => resolve(false))
     }
-    const eventPayload =  payload[0] && is_synthetic_event_duck_typing(payload[0]) 
+    const eventPayload = payload[0] && is_synthetic_event_duck_typing(payload[0]) 
       ?  payload[0] 
       : create_custom_event(eventName, payload[0])
     const res = cb(eventPayload)

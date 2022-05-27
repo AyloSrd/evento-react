@@ -1,4 +1,4 @@
-# component event for React
+# component events for React
 - Dispatch custom component events with a payload, or forward React synthetic events.
 - Replicate Svelte's `createEventDispatcher` and Vue's `$emit` behavior in React.
 - Hook + HOC for class components.
