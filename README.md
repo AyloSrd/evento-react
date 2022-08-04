@@ -29,13 +29,13 @@ The data will be stored in `event.detail`.
 
 The event dispatcher, named by convention `evento`(not to conflict with `useReducer`'s `dispatch`, or with `emit` from other libraries), can be either created by using one of the two provided hooks (`useCreateEvento` and `useExpCreateEvento`), or found in the props if you have wrapped your component with the `withEvento` HOC.
 
-Evento comes with full TypeScript support, and will suggest all of the available event for a given component, based on the component's props type, as well as the payload type for the chosen event.
+Evento comes with full TypeScript support, and will suggest all of the available event for a given component, based on the component's props type, as well as the payload type for the chosen event. It will also take into account whether the event-listener, or the event, is nullable or not.
 
 ##  `evento`, the event dispatcher/emitter
 
 The event dispatcher/emitter takes two parameters:
 1. The event name, to be written in lower camel case (e.g. `myCoolEvent`). Evento will look for the `'on'` + upper camel case name in the props (`onMyCoolEvent`). If you are forwarding an event, you don't have to use the same name (although it's advised to do so, in order to avoid confusion).
-2. The payload, which can be any type of data, which will be stored in `event.detail`, or a React synthetic event, which will be forwarded as it is to its parent.
+2. The payload, optional, which can be any type of data, and will be stored in `event.detail`, or a React synthetic event, which will be forwarded as it is to its parent.
 
 ## Main Hook
 
@@ -69,7 +69,8 @@ const Level = () =>
 
 ## Experimental Hook
 
-`useExpCreateEvento` hook is an experimental hook, similar to Svelte'e `createEventDispatcher`, as it doesn't take any arguments when called (in TypeScript though, you have to pass the Props type as Generic type); it will behave exactly like `useCreateEvento`, producing an event dispatcher. We suggest you use the standard hook for big projects, as we cannot grant that `useExpCreateEvento` will work with future React verisons.
+`useExpCreateEvento` hook is an experimental hook, similar to Svelte'e `createEventDispatcher`, as it doesn't take any arguments when called (in TypeScript though, you have to pass the Props type as Generic type); it will behave exactly like `useCreateEvento`, producing an event dispatcher.
+Unfortunately it is not stable yet, and should only be used in development mode. Also we cannot grant that `useExpCreateEvento` will work with future React verisons. This particular hook is mostly a proof of concept.
 Nonetheless, it may come in handy in some cases, for instance if you pass destructured props to your component. 
 ```tsx
 export const Peach = ({ isBowserNear, shouldSaveMario }: PeachProps) => {
@@ -135,7 +136,7 @@ If you need to forward an event to the parent component, you can do it by passin
 You don't have to name the event as the synthetic event itself, although we advise you to keep the same name, to hint that the event that the handler is going to receive is not a custom one.
 ```tsx
 // you can do this
-onChange={e => evento('textChange', e)
+onChange={e => evento('textChange', e)}
 
 // but it's better to do this
 onChange={e => evento('change', e)}
@@ -164,6 +165,16 @@ type MarioProps = {
 // the event will be dispatched as such
 const handleClick = () => evento('eat', 'shroom')
 
+```
+Props and events can be optional, and TypeScript will take it into account when suggesting types signaling errors :
+```tsx
+type PeachProps = {
+  onSaveMario: (e: CustomEvent<boolean>) => void,
+  onDriveKart: (e?: CustomEvent<DrivingLicence>) => void,
+} 
+
+evento('saveMario') // will throw typescript error because the event is not-nullable
+evento('driveKart') // won't throw typescript error because the event is optional
 ```
 When you are working with the experimental hook, you still have to pass the props type (but not the props themselves) to it :
 ```tsx
