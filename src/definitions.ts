@@ -1,20 +1,35 @@
+import React from "react"
+
 export type Handlers<T> = {
     [Property in keyof T as Property extends `on${infer EventName}` ? Uncapitalize<EventName> : never]: T[Property] 
 }
-  
-export type Payload<T, K extends keyof Handlers<T>> = 
-    Handlers<T>[K] extends (undefined | (() => any)) ? 
-        undefined
-    : Handlers<T>[K] extends (undefined | ((e: CustomEvent<infer D>) => any)) ? 
-        D
-    :  Handlers<T>[K] extends (undefined | ((e: infer D & React.SyntheticEvent) => any)) ?
-        D
-    :
-        never
-  
+
 export type Evento<T> = <K extends keyof Handlers<T> & string>(
-    eventName: K, 
-    ...payload: Payload<T, K> extends undefined ? [undefined?] : [Payload<T, K>]
+    ...args: Handlers<T>[K] extends (undefined | ((evt?: CustomEvent<infer D> | undefined) => any)) ?
+      [
+        eventName: K,
+        payload?: D | undefined,
+      ]
+    : Handlers<T>[K] extends (undefined | ((evt: CustomEvent<infer D>) => any)) ?
+      [
+        eventName: K,
+        payload: D,
+      ]
+    : Handlers<T>[K] extends (undefined | ((evt?: undefined | React.SyntheticEvent & infer D) => any)) ?
+      [
+        eventName: K,
+        payload?: D,
+      ]
+    : Handlers<T>[K] extends (undefined | ((evt: React.SyntheticEvent & infer D) => any)) ?
+      [
+        eventName: K,
+        payload: D,
+      ]
+    :
+      [
+        eventName: K,
+        payload?: string,
+      ]
 ) => Promise<boolean>
 
 export type HOCProps<T> = T & {

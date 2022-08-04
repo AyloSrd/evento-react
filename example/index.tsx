@@ -37,7 +37,7 @@ type KoopaProps = {
 }
 
 type YoshiProps = {
-  onForwardedClick: (e: React.MouseEvent<HTMLButtonElement>) => void
+  onForwardedClick: (e?: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 const Mario = (props: MarioProps) => {
@@ -166,7 +166,7 @@ const App = () => {
       <button onClick={() => setKoopaSpeed(Math.random())}>
         change speed
       </button>
-      <Yoshi onForwardedClick={e => console.log(e.clientX)} />
+      <Yoshi onForwardedClick={e => console.log(e ? e.clientX : 'we don\'t know')} />
     </div>
   );
 };
