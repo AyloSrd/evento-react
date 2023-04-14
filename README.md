@@ -40,7 +40,7 @@ The event dispatcher/emitter takes two parameters:
 ## Main Hook
 
 The standard way to create an event dispatcher is by using the `useCreateEvento` hook.
-The hook takes the component props as the parameter and will observe changes in the props (so don't forget to watch for props changes if you wrap the event handler in `useCallback` ). 
+The hook takes the component props as the parameter and will observe changes in the props (so don't forget to watch for any `evento` function changes if you wrap the event handler in `useCallback` ). 
 It will return the event dispather/emitter, which can be used for multiple event.
 ```tsx
 // child, hook consumer
